@@ -1,6 +1,5 @@
 import { db } from '@/lib/db'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { nanoid } from 'nanoid'
 import { NextAuthOptions, getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
@@ -32,9 +31,9 @@ export const authOptions: NextAuthOptions = {
       
       if (token) {
         session.user.id = token.id
-        session.user.name = token.name
-        session.user.email = token.email
-        session.user.image = token.picture
+        session.user.name = token.name as string 
+        session.user.email = token.email as string 
+        session.user.image = token.picture as string 
       }
       
       return session;
@@ -58,6 +57,7 @@ export const authOptions: NextAuthOptions = {
         name: dbUser.name,
         email: dbUser.email,
         picture: dbUser.image,
+        role: dbUser.role,
       };
     },
     

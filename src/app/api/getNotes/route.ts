@@ -7,7 +7,7 @@ export async function GET(request: Request, response: Response) {
 
      console.log("Notes have been fetched: ", notes);
      
-     return new Response(JSON.stringify({ notes, creators}), {
+     return new Response(JSON.stringify({ notes, creators }), {
           status: 200,
           headers: {
                "Content-Type": "application/json"
