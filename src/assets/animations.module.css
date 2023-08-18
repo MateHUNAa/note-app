@@ -1,0 +1,53 @@
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-please {
+  animation: slideIn 1s ease-in-out;
+}
+
+/* Define slide-in animation with bounce */
+@keyframes slideInWithBounce {
+     0%, 100% {
+       transform: translateY(100%);
+     }
+     60% {
+       transform: translateY(-10%);
+     }
+     80% {
+       transform: translateY(5%);
+     }
+     100% {
+       transform: translateY(0);
+     }
+   }
+   
+   /* Apply slide-in animation with bounce to elements with the 'slide-in' class */
+   .slide-in-bounce {
+     animation: slideInWithBounce 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+   }
+   
+
+.glowing-shadow {
+  animation: glowing 3s infinite;
+  z-index: 20;
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 0px rgba(154, 172, 207, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(154, 172, 207, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(154, 172, 207, 0.5);
+  }
+}

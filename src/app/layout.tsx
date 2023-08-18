@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import './global.css'
+import '@/assets/global.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Toaster } from '@/components/ui/toaster'
