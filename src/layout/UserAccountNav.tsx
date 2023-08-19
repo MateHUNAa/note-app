@@ -10,11 +10,12 @@ import { Roles } from '@prisma/client'
 import { cn } from '@/lib/utils'
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
-  user: Pick<User, 'name' | 'image' | 'email'>
+  user: Pick<User, "email" | "id" | "image" | "name">
+  username: string
   role: Roles
 }
 
-const UserAccountNav: FC<UserAccountNavProps> = ({ user, role, className, ...props }) => {
+const UserAccountNav: FC<UserAccountNavProps> = ({ user, role, className, username, ...props }) => {
 
   const ifAdmin = () => {
     if (role === Roles.ADMIN) {
@@ -45,7 +46,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user, role, className, ...pro
         <DropdownMenuContent className="text-black font-bold bg-slate-600 border-black" align='end'>
           <div className='flex items-center justify-start gap-2 p-2'>
             <div className='flex flex-col space-y-1 leading-none'>
-              {user.name && <p className='font-bold'>{user.name}</p>}
+              {username && <p className='font-bold'>{username}</p>}
               {user.email && <p className='w-[200px] truncate text-sm text-zinc-700'>{user.email}</p>}
             </div>
           </div>
@@ -57,7 +58,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user, role, className, ...pro
             </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
-              <Link href='/profile' >Profile</Link>
+              <Link href={`/profile/${user.id}`} >Profile</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href='/settings' >Settings</Link>

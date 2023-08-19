@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Roles { 
+enum Roles {
   ADMIN
   USER
 }
@@ -17,22 +17,22 @@ model notes {
   content   String
   createdAt DateTime @default(now())
   creatorId String
-  creator   User?    @relation("CreatedBy", fields: [creatorId], references: [id] )
+  creator   User?    @relation("CreatedBy", fields: [creatorId], references: [id])
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -48,16 +48,23 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  image         String?
-  emailVerified DateTime? @map("email_verified")
-  accounts      Account[]
-  sessions      Session[]
-  createdNotes  notes[]  @relation("CreatedBy")
-  role          Roles     @default(USER)
+  id                 String               @id @default(cuid())
+  name               String?
+  email              String?              @unique
+  image              String?
+  username           String?              @unique
+  emailVerified      DateTime?            @map("email_verified")
+  accounts           Account[]
+  sessions           Session[]
+  createdNotes       notes[]              @relation("CreatedBy")
+  role               Roles                @default(USER)
+  usernameChangeAttempt usernameChangeAttempts[]
 }
 
-
-
+model usernameChangeAttempts {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  name      String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

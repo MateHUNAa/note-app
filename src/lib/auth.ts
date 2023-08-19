@@ -3,6 +3,8 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { NextAuthOptions, getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
+import TwitterProvider from 'next-auth/providers/twitter'
+import InstagramProvider from 'next-auth/providers/instagram'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -16,8 +18,20 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_CLIENT_ID!,
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID!,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET!,
+    }),
+    InstagramProvider({
+      clientId: process.env.INSTAGRAM_CLIENT_ID!,
+      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET!,
+    }),
+    
+
     
   ],
+
+
   session: {
     strategy: 'jwt',
   },
@@ -26,7 +40,8 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
 
-    
+
+
     async session({ token, session }) {
       
       if (token) {
@@ -34,6 +49,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name as string 
         session.user.email = token.email as string 
         session.user.image = token.picture as string 
+        session.user.username = token.username as string
       }
       
       return session;
@@ -58,6 +74,7 @@ export const authOptions: NextAuthOptions = {
         email: dbUser.email,
         picture: dbUser.image,
         role: dbUser.role,
+        username: dbUser.username,
       };
     },
     
