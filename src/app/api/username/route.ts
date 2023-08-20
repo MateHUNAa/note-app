@@ -2,7 +2,6 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { UsernameValidator } from "@/lib/validators/username";
 import { z } from "zod";
-import type { User } from "@prisma/client";
 
 async function canChangeName(userId: string) {
   const recentAttempts = await db.usernameChangeAttempts.findMany({
@@ -35,12 +34,6 @@ export async function PATCH(req: Request, res: Response) {
         "You can only change your username 3 times every 5 minutes",
         { status: 429, statusText: "Too Many Requests" }
       );
-    } else {
-      await db.usernameChangeAttempts.deleteMany({
-        where: {
-          userId: session.user.id,
-        },
-      });
     }
 
     const isExist = await db.user.findFirst({ where: { username: username } });

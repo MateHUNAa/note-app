@@ -63,12 +63,18 @@ const NotesTable: FC<NotesTableProps> = ({ role }) => {
     }
   }, [creatorsData]);
 
+  const { data: newNotes} = useQuery(['newNotes'], async () => {
+    const { data } = await axios.get('/api/getNotes');
+    return data;
+  });
 
   useEffect(() => {
     if (notesData) {
       setNotes(notesData);
     }
-  }, [notesData]);
+  }, [notesData, newNotes]);
+
+
 
   const { mutate: deleteNote } = useMutation((id: number) => axios.post(`/api/deleteNote`, { id: id }), {
     onSuccess: async () => {
@@ -100,6 +106,8 @@ const NotesTable: FC<NotesTableProps> = ({ role }) => {
         const newNotes = await axios.get('/api/getNotes');
         setNotes(newNotes.data);
         queryClient.invalidateQueries(['notes']);
+        queryClient.invalidateQueries(['creators']);
+        queryClient.invalidateQueries(['newNotes']);
         // setNewlyAddedNotes((prev) => [...prev, newNoteId]);
         setSearch('');
         toast({

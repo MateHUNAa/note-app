@@ -1,8 +1,8 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { isAdminAsync } from "@/lib/utils/accessControl";
-import { Roles } from "@prisma/client";
 import { AxiosError } from "axios";
+import type { Roles } from "@prisma/client";
 
 type Data = {
   userId: string;

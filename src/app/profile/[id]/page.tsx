@@ -26,11 +26,11 @@ const queryClient = new QueryClient({
 
 const Page: FC<PageProps> = (props) => {
      return (
-         <SessionProvider>
-             <QueryClientProvider client={queryClient}>
-                 <DynamicContext id={props.params.id}  /> 
-             </QueryClientProvider>
-         </SessionProvider>
+          <SessionProvider>
+               <QueryClientProvider client={queryClient}>
+                    <DynamicContext id={props.params.id} />
+               </QueryClientProvider>
+          </SessionProvider>
      );
 };
 

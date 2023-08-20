@@ -30,7 +30,6 @@ const Content: FC<ContentProps> = (props) => {
     router.refresh();
   };
 
-
   const { id } = props;
 
   const { data: user } = useQuery({
@@ -41,7 +40,6 @@ const Content: FC<ContentProps> = (props) => {
     }
   })
 
-
   if (!user) {
     return (
       <div>
@@ -51,10 +49,10 @@ const Content: FC<ContentProps> = (props) => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[80vh] bg-slate-700 scale-110">
-      <div className="max-w-md p-6 bg-gray-800 shadow-lg rounded-lg">
+    <div className="flex items-center justify-center min-h-[80vh] bg-slate-700 ">
+      <div className="max-w-md p-6 bg-gray-800 shadow-lg rounded-lg scale-110">
         <div className="mb-6 text-center">
-          <UserAvatar user={user} className="w-24 h-24 mx-auto" />
+          <UserAvatar user={user} className="w-24 h-24 mx-auto ring-2 ring-white " />
           <h2 className="mt-2 text-2xl font-semibold text-white">{user.username}</h2>
           <p className="text-gray-400">{user.id === "cllibvfxn0000v2k48ugiy8jn" && user.role === Roles.ADMIN ? "Web Developer" : user.role}</p>
         </div>

@@ -1,8 +1,5 @@
 import { getAuthSession } from "@/lib/auth";
-import { PrismaClient } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
-
-const prisma = new PrismaClient();
+import { db } from "@/lib/db"
 
 type Data = {
     content: string;
@@ -18,7 +15,7 @@ export async function POST(request: Request, response: Response) {
         return new Response("Unauthorized", { status: 401 })
     }
 
-    const note = await prisma.notes.create({
+    const note = await db.notes.create({
         data: {
             content: data.content,
             creatorId: session.user.id,

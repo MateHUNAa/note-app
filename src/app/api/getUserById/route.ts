@@ -1,9 +1,16 @@
 import { db } from "@/lib/db";
-import { User } from "@prisma/client";
-import { AxiosError } from "axios";
-
+import type { Roles } from "@prisma/client";
 type Data = {
   id: string;
+};
+
+type User = {
+  id: string;
+  role: Roles;
+  name: string | null;
+  email: string;
+  image: string;
+  username: string;
 };
 
 export async function PATCH(request: Request, response: Response) {
@@ -25,7 +32,7 @@ export async function PATCH(request: Request, response: Response) {
 
     console.log("User found: ", user);
 
-    return new Response(JSON.stringify(user as User), {
+    return new Response(JSON.stringify(user), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
