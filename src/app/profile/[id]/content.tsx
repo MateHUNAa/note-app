@@ -54,7 +54,7 @@ const Content: FC<ContentProps> = (props) => {
         <div className="mb-6 text-center">
           <UserAvatar user={user} className="w-24 h-24 mx-auto ring-2 ring-white " />
           <h2 className="mt-2 text-2xl font-semibold text-white">{user.username}</h2>
-          <p className="text-gray-400">{user.id === "cllibvfxn0000v2k48ugiy8jn" && user.role === Roles.ADMIN ? "Web Developer" : user.role}</p>
+          <p className="text-gray-400">{ROLES.ADMIN ? "Adminisztrátor" : user.role === Roles.USER ? "Felhasználó :"User Role Not Found" }</p>
         </div>
         <div className="flex justify-center">
           <button
